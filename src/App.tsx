@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { useAppDispatch, useAppSelector } from "./app/hooks"
+import {SignIn, SignOut, auth, authSelector} from './redux/AuthSlice'
+import { useAuthState } from "react-firebase-hooks/auth"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+const App: React.FC = () => {
+	const dispatch = useAppDispatch()
+	const {isAuth} = useAppSelector(authSelector)
+	const [user, loading] = useAuthState(auth)
+    console.log(!loading && user?.displayName)
+	
+	return (
+	<div>
+		<button onClick={() => dispatch(SignIn())}>SignIn</button>
+		<button onClick={() => dispatch(SignOut())}>SignOut</button>
+		<>name: {user?.displayName}</>
+	</div>
+)}
+
+export default App
