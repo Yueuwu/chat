@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import auth from '../redux/AuthSlice';
+import firestore from '../redux/StoreSlice'
 
 export const store = configureStore({
   reducer: {
-    auth
+    auth,
+    firestore
   },
 });
 
