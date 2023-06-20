@@ -1,16 +1,18 @@
 import React, { useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { SignIn, SignOut, authSelector } from "./redux/AuthSlice"
+import { SignIn, SignOut } from "./redux/AuthSlice"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useCollection } from "react-firebase-hooks/firestore"
 import { auth, firestore } from "./firebase"
 import { collection } from "firebase/firestore"
 import { sendMessage, storeSelector, changeMessage, setUser } from "./redux/StoreSlice"
+import Header from "./components/Header/Header"
+import Dialog from "./components/Dialog/Dialog"
+import { User } from "firebase/auth"
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch()
 
-	const { isAuth } = useAppSelector(authSelector)
 	const { message } = useAppSelector(storeSelector)
 	const [user, loading] = useAuthState(auth)
 
@@ -26,8 +28,6 @@ const App: React.FC = () => {
 				userId: user.uid
 			}
 			dispatch(setUser(userState))
-		} else if (!loading) {
-			alert("U have to sign in")
 		}
 	}, [user])
 
@@ -37,16 +37,12 @@ const App: React.FC = () => {
 
 	return (
 		<div>
-			<button onClick={() => dispatch(SignIn())}>SignIn</button>
-			<button onClick={() => dispatch(SignOut())}>SignOut</button>
-			<>name: {user?.displayName}</>
+			<Header/>
+			{
+				user && <Dialog {...user}/>
+			}
 			<textarea value={message} onChange={(e) => writeMessage(e)}></textarea>
 			<button onClick={() => user && dispatch(sendMessage())}>Send</button>
-			<>
-				{!load && value?.docs.map((d, i) => {
-					return <li key={i}>`${JSON.stringify(d.data())}`</li>
-				})}
-			</>
 		</div>
 	)
 }
