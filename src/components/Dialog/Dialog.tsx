@@ -11,8 +11,6 @@ const Dialog: React.FC<User> = (user) => {
             collection(firestore, "messages"),
             orderBy('createdAt')
             )
-		
-		
 	)
 
 	return (
