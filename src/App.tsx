@@ -14,50 +14,22 @@ import {
 import Header from "./components/Header/Header"
 import Dialog from "./components/Dialog/Dialog"
 import { User } from "firebase/auth"
+import Send from "./components/Send/Send"
 
 const App: React.FC = () => {
-	const dispatch = useAppDispatch()
-
-	const { message } = useAppSelector(storeSelector)
 	const [user, loading] = useAuthState(auth)
 
-	const [value, load, error] = useCollection(
-		collection(firestore, "messages"),
-		{
-			snapshotListenOptions: { includeMetadataChanges: true },
-		}
-	)
-
-	useEffect(() => {
-		if (user) {
-			const userState = {
-				userName: user.displayName,
-				userPhoto: user.photoURL,
-				userId: user.uid,
-			}
-			dispatch(setUser(userState))
-		}
-	}, [user])
-
-	const writeMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-		dispatch(changeMessage(event.target.value))
-	}
-
 	return (
-		<div>
+		<div style={{ background: "#EDFEE8", height: "100vh" }}>
 			<Header />
 			{user ? (
-				<Dialog {...user} />
+				<>
+					<Dialog {...user} />
+					<Send {...user} />
+				</>
 			) : (
 				<div>U have to sign in to read and send messages</div>
 			)}
-			<textarea
-				value={message}
-				onChange={(e) => writeMessage(e)}
-			></textarea>
-			<button onClick={() => user && dispatch(sendMessage())}>
-				Send
-			</button>
 		</div>
 	)
 }
