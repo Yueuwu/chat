@@ -3,11 +3,18 @@ import { RootState } from "../app/store"
 import { firestore } from "../firebase"
 import { addDoc, collection, serverTimestamp } from "firebase/firestore"
 
-const initialState = {
-	message: "",
-	userName: "",
-	userPhoto: "",
-	userId: "",
+export interface messageI {
+	message: string
+	userName: string
+	userPhoto: string
+	userId: string
+}
+
+const initialState: messageI = {
+	message: '',
+	userName: '',
+	userPhoto: '',
+	userId: '',
 }
 
 export const storeSlice = createSlice({
@@ -22,6 +29,7 @@ export const storeSlice = createSlice({
 				userId: state.userId,
 				createdAt: serverTimestamp(),
 			})
+			state.message = ''
 		},
 		changeMessage: (state, action) => {
 			state.message = action.payload
