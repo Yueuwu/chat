@@ -1,0 +1,28 @@
+.Box {
+	border: 1px solid #c6f3bf;
+	width: 70vw;
+	height: 70vh;
+	overflow: auto;
+	background-color: #f2fcf6;
+    -webkit-box-shadow: 2px 3px 21px -1px rgba(37, 232, 17, 0.1);
+        -moz-box-shadow: 2px 3px 21px -1px rgba(37, 232, 17, 0.1);
+        box-shadow: 2px 3px 21px -1px rgba(37, 232, 17, 0.1);
+}
+.Box::-webkit-scrollbar {
+	width: 0.6vw;
+	height: 5vh;
+	background-color: #c6f3bf;
+}
+
+.Box::-webkit-scrollbar-track {
+	background-color: #c6f3bf;
+	border-radius: 100px;
+}
+
+.Box::-webkit-scrollbar-thumb {
+	border-radius: 100px;
+	height: 5vmin;
+	border-left: 0;
+	border-right: 0;
+	background: #28d00f;
+}
