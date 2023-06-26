@@ -1,6 +1,7 @@
-import { Box, Divider, Grid, CircularProgress } from "@mui/material"
+import { Box, Divider, Grid, CircularProgress, Fab } from "@mui/material"
+import NavigationIcon from "@mui/icons-material/Navigation"
 import { DocumentData, collection, orderBy, query } from "firebase/firestore"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import {
 	useCollection,
 	useCollectionData,
@@ -20,6 +21,9 @@ export interface propsI {
 }
 
 const Dialog: React.FC<User> = (user) => {
+	const scrollRefDown = useRef<HTMLDivElement | null>(null)
+	const scrollRefUp = useRef<HTMLDivElement | null>(null)
+
 	const [value, loading, error] = useCollection(
 		query(collection(firestore, "messages"), orderBy("createdAt"))
 	)
@@ -36,9 +40,18 @@ const Dialog: React.FC<User> = (user) => {
 		return { data: propsData, isUser: isUser }
 	}
 
+	const scrollUp = () => {
+		scrollRefUp.current?.scrollIntoView()
+	}
+
+	useEffect(() => {
+		scrollRefDown.current?.scrollIntoView()
+	}, [value])
+
 	return (
 		<Box sx={{ display: "flex", justifyContent: "center" }}>
 			<div className={style.Box}>
+				<div ref={scrollRefUp}></div>
 				{loading ? (
 					<div className={style.loader}>
 						<CircularProgress color="success" />
@@ -56,12 +69,17 @@ const Dialog: React.FC<User> = (user) => {
 						>
 							{value?.docs.map((doc, index) => (
 								<Grid key={index} xs={12}>
-									<DialogItem {...propsMaker(doc.data())}/>
+									<DialogItem {...propsMaker(doc.data())} />
 								</Grid>
 							))}
 						</Grid>
 					</>
 				)}
+				{/* <Fab sx={{position: 'relative', right: '1vmin', bottom: '12vh', zIndex: 99}} variant="extended">
+					<NavigationIcon sx={{ mr: 1 }} />
+					Navigate
+				</Fab> */}
+				<div ref={scrollRefDown}></div>
 			</div>
 		</Box>
 	)

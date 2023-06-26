@@ -12,6 +12,7 @@
 .top{
     display: flex;
     align-items: center;
+    height: 6vh;
 }
 .mid{
     height: 85%;

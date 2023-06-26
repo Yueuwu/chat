@@ -14,7 +14,6 @@ const DialogItem: React.FC<propsI> = ({ data, isUser }) => {
 	const date = new Date(
 		Number(data.createdAt?.seconds + "000")
 	)?.toLocaleDateString()
-
 	return (
 		<div style={styleHandler()} className={style.wrapper}>
 			<div
