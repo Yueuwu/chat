@@ -1,20 +1,10 @@
-import React, { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "./app/hooks"
-import { SignIn, SignOut } from "./redux/AuthSlice"
+import React from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useCollection } from "react-firebase-hooks/firestore"
-import { auth, firestore } from "./firebase"
-import { collection } from "firebase/firestore"
-import {
-	sendMessage,
-	storeSelector,
-	changeMessage,
-	setUser,
-} from "./redux/StoreSlice"
+import { auth } from "./firebase"
 import Header from "./components/Header/Header"
 import Dialog from "./components/Dialog/Dialog"
-import { User } from "firebase/auth"
 import Send from "./components/Send/Send"
+import { Box } from "@mui/material"
 
 const App: React.FC = () => {
 	const [user, loading] = useAuthState(auth)
@@ -28,7 +18,9 @@ const App: React.FC = () => {
 					<Send {...user} />
 				</>
 			) : (
-				<div>U have to sign in to read and send messages</div>
+				<Box sx={{textAlign: 'center'}}>
+					<h1>You have to sign in via google to read and send messages</h1>
+				</Box>
 			)}
 		</div>
 	)

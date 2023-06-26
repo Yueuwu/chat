@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
-import { Button } from "@mui/material"
+import { Button, Link } from "@mui/material"
 import { SignIn, SignOut } from "../../redux/AuthSlice"
 import { useAppDispatch } from "../../app/hooks"
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -30,7 +30,10 @@ const Header: React.FC = () => {
 						component="div"
 						sx={{ flexGrow: 1 }}
 					>
-						Online Chat
+						Online Chat by{" "}
+						<Link color='InfoText' href="https://github.com/Yueuwu" underline="none">
+							Yueuwu
+						</Link>
 					</Typography>
 					<Typography
 						variant="h6"
@@ -41,9 +44,13 @@ const Header: React.FC = () => {
 					</Typography>
 					<div>
 						{user ? (
-							<Button onClick={signOutHandler} color="inherit">Sign Out</Button>
+							<Button onClick={signOutHandler} color="inherit">
+								Sign Out
+							</Button>
 						) : (
-							<Button onClick={signInHandler} color="inherit">Sign In</Button>
+							<Button onClick={signInHandler} color="inherit">
+								Sign In
+							</Button>
 						)}
 					</div>
 				</Toolbar>
