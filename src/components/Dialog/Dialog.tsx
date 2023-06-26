@@ -1,16 +1,13 @@
-import { Box, Divider, Grid, CircularProgress, Fab } from "@mui/material"
-import NavigationIcon from "@mui/icons-material/Navigation"
+import { Box, Grid, CircularProgress } from "@mui/material"
 import { DocumentData, collection, orderBy, query } from "firebase/firestore"
 import React, { useEffect, useRef } from "react"
-import {
-	useCollection,
-	useCollectionData,
-} from "react-firebase-hooks/firestore"
+import { useCollection } from "react-firebase-hooks/firestore"
 import { firestore } from "../../firebase"
 import { User } from "firebase/auth"
 import style from "./dialog.module.css"
 import { messageI } from "../../redux/StoreSlice"
 import DialogItem from "../DialogItem/DialogItem"
+import MessageMenu from "../Menu/Menu"
 
 interface fullmessageI extends messageI {
 	createdAt: { nanoseconds: string; seconds: string }
@@ -43,14 +40,16 @@ const Dialog: React.FC<User> = (user) => {
 	const scrollUp = () => {
 		scrollRefUp.current?.scrollIntoView()
 	}
-
-	useEffect(() => {
+	const scrollDown = () => {
 		scrollRefDown.current?.scrollIntoView()
-	}, [value])
+	}
+
+	useEffect(scrollDown, [value])
 
 	return (
 		<Box sx={{ display: "flex", justifyContent: "center" }}>
 			<div className={style.Box}>
+				<MessageMenu scrollDown={scrollDown} scrollUp={scrollUp} />
 				<div ref={scrollRefUp}></div>
 				{loading ? (
 					<div className={style.loader}>
@@ -75,10 +74,6 @@ const Dialog: React.FC<User> = (user) => {
 						</Grid>
 					</>
 				)}
-				{/* <Fab sx={{position: 'relative', right: '1vmin', bottom: '12vh', zIndex: 99}} variant="extended">
-					<NavigationIcon sx={{ mr: 1 }} />
-					Navigate
-				</Fab> */}
 				<div ref={scrollRefDown}></div>
 			</div>
 		</Box>
