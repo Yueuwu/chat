@@ -1,5 +1,27 @@
 .wrapper {  
-    height: 4vh;
-    min-width: 3vw;      
-    background-color: aquamarine;  
+    display: flex;
+    padding: 0.7vmin;
+    flex-direction: column;
+    border-radius: 7px;
+    min-width: 20vw; 
+    max-width: 50vw;     
+    background-color: rgba(10, 243, 146, 0.3);
+    margin: 1vmin;  
+    height: auto;
+}
+.top{
+    display: flex;
+    align-items: center;
+}
+.mid{
+    height: 85%;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 0.5vmin;
+    border-radius: 8px;
+}
+.bottom{
+    width: "fit-content";
+    margin-left: auto;
+    color: rgb(98, 98, 98);
+    font-size: 13px;
 }
