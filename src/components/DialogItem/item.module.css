@@ -13,12 +13,15 @@
     display: flex;
     align-items: center;
     height: 6vh;
+    font-weight: 500;
 }
 .mid{
     height: 85%;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 0.5vmin;
+    padding: 1.5vmin;
     border-radius: 8px;
+    font-size: medium;
+    margin-bottom: 0.5vh;
 }
 .bottom{
     width: "fit-content";
