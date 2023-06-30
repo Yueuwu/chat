@@ -4,13 +4,14 @@ import { auth } from "./firebase"
 import Header from "./components/Header/Header"
 import Dialog from "./components/Dialog/Dialog"
 import Send from "./components/Send/Send"
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
+import "./App.css"
 
 const App: React.FC = () => {
-	const [user, loading] = useAuthState(auth)
+	const [user] = useAuthState(auth)
 
 	return (
-		<div style={{ background: "#EDFEE8", height: "100vh" }}>
+		<div>
 			<Header />
 			{user ? (
 				<>
@@ -18,8 +19,10 @@ const App: React.FC = () => {
 					<Send {...user} />
 				</>
 			) : (
-				<Box sx={{textAlign: 'center'}}>
-					<h1>You have to sign in via google to read and send messages</h1>
+				<Box sx={{ textAlign: "center" }}>
+					<Typography variant="h4">
+						You have to sign in via google to read and send messages
+					</Typography>
 				</Box>
 			)}
 		</div>

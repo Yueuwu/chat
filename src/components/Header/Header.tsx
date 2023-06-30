@@ -14,12 +14,7 @@ const Header: React.FC = () => {
 
 	const [user, loading] = useAuthState(auth)
 
-	const signInHandler = () => {
-		dispatch(SignIn())
-	}
-	const signOutHandler = () => {
-		dispatch(SignOut())
-	}
+	const signHandler = () => [dispatch(user ? SignOut() : SignIn())]
 
 	return (
 		<Box sx={{ width: "100%", marginBottom: "1vmin" }}>
@@ -31,7 +26,11 @@ const Header: React.FC = () => {
 						sx={{ flexGrow: 1 }}
 					>
 						Online Chat by{" "}
-						<Link color='InfoText' href="https://github.com/Yueuwu" underline="none">
+						<Link
+							color="InfoText"
+							href="https://github.com/Yueuwu"
+							underline="none"
+						>
 							Yueuwu
 						</Link>
 					</Typography>
@@ -43,15 +42,11 @@ const Header: React.FC = () => {
 						{user && "Name: " + user?.displayName}
 					</Typography>
 					<div>
-						{user ? (
-							<Button onClick={signOutHandler} color="inherit">
-								Sign Out
-							</Button>
-						) : (
-							<Button onClick={signInHandler} color="inherit">
-								Sign In
-							</Button>
-						)}
+						<Button onClick={signHandler} color="inherit">
+							<Typography variant="h6">
+								{user ? "Sign Out" : "Sign In"}
+							</Typography>
+						</Button>
 					</div>
 				</Toolbar>
 			</AppBar>

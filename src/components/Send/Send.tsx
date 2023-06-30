@@ -40,7 +40,7 @@ const Send: React.FC<User> = (user) => {
 		dispatch(changeMessage(event.target.value))
 	}
 	const sendMessageHandler = () => {
-		if (message) {
+		if (message && message.replace(/\s/g, '') !== '') {
 			dispatch(sendMessage())
 		}
 	}
@@ -57,12 +57,13 @@ const Send: React.FC<User> = (user) => {
 				sx={{
 					display: "flex",
 					justifyContent: "space-between",
-					width: "70vw",
+					width: "90vw",
 				}}
 			>
 				<TextField
 					sx={{
 						width: "89%",
+						marginRight: "0.5vw"
 					}}
 					label="Enter message"
 					variant="outlined"
